@@ -1,3 +1,4 @@
+using Application.Dtos;
 using Application.Model;
 using Application.Service.Interface;
 using Domain.Entity;
@@ -15,7 +16,7 @@ namespace API.Controllers
             _userService = userService;
         }
         [HttpGet]
-        [ProducesResponseType(200, Type = typeof(IEnumerable<User>))] 
+        [ProducesResponseType(200, Type = typeof(IEnumerable<UserDto>))] 
         public async Task<IActionResult> GetAllUser()
         {
             var users = await _userService.GetAllUserAsync();

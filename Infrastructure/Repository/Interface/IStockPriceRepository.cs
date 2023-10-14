@@ -9,8 +9,8 @@ namespace Infrastructure.Repository.Interface
 {
     public interface IStockPriceRepository:IRepositoryBase<StockPrice>
     {
-        Task<IEnumerable<StockPrice>> GetByStockSymbol(string symbol);
-        Task<IEnumerable<StockPrice>> GetByTimeStamp(string symbol, DateTime startDate, DateTime endDate);
+        Task<IEnumerable<StockPrice>> GetStockBySymbol(string symbol);
+        Task<IEnumerable<StockPrice>> GetStockByTimeStamp(string symbol, DateTime startDate, DateTime endDate);
 
     }
 }

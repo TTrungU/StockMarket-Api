@@ -26,4 +26,10 @@
     <Folder Include="SeedDataCSV\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="SeedDataCSV\STB_Historical_Data.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace Domain.Exceptions
 {
-    public class NotFoundException : Exception
+    public class AuthenticationException: Exception
     {
-        public NotFoundException(string message)
-        : base(message)
-        {
-        }
+        public AuthenticationException(string message): base(message) { }
     }
 }

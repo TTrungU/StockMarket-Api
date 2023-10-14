@@ -9,5 +9,8 @@ namespace Infrastructure.Repository.Interface
 {
     public interface IStockRepository:IRepositoryBase<Stock>
     {
+       Task<IEnumerable<Stock>> GetAll();
+       Task<Stock> GetById(int id);
+        
     }
 }

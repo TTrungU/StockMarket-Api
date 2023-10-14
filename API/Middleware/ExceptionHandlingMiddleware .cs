@@ -33,6 +33,7 @@ namespace API.Middleware
                     BadRequestException => StatusCodes.Status400BadRequest,
                     NotFoundException => StatusCodes.Status404NotFound,
                     ConflictException => StatusCodes.Status409Conflict,
+                    AuthenticationException => StatusCodes.Status401Unauthorized,
                     _ => StatusCodes.Status500InternalServerError
                 };
 

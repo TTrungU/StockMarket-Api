@@ -54,6 +54,7 @@ namespace Application.Service
 
             return _mapper.Map<UserDto>(user);
         }
+
         public async Task DeleteUserAsync(int id)
         {
             var user = await _userRepository.GetUserByIdAsync(id);

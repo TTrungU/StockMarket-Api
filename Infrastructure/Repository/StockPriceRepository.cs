@@ -18,15 +18,23 @@ namespace Infrastructure.Repository
             
         }
 
-        public async Task<IEnumerable<StockPrice>> GetByStockSymbol(string symbol)
+        public async Task<IEnumerable<StockPrice>> GetStockBySymbol(string symbol)
         {
-            Expression<Func<StockPrice, bool>> expression = s=>s.Stock.Symbol == symbol;
+            Expression<Func<StockPrice, bool>> expression = s =>s.Stock.Symbol == symbol;
             return await FindByCondition(expression).ToListAsync();
         }
 
-        public Task<IEnumerable<StockPrice>> GetByTimeStamp(string symbol, DateTime startDate, DateTime endDate)
+        public async Task<IEnumerable<StockPrice>> GetStockByTimeStamp(string symbol, DateTime startDate, DateTime endDate)
         {
-            throw new NotImplementedException();
+            Expression<Func<StockPrice,bool>> expression = s => s.Stock.Symbol == symbol && s.TimeStamp >= startDate && s.TimeStamp <= endDate;
+            var query = from stock in _context.Stocks
+                        join stockPrice in _context.StockPrices
+                        on stock.Id equals stockPrice.StockId
+                        where stock.Symbol == symbol
+                        && stockPrice.TimeStamp >= startDate
+                        && stockPrice.TimeStamp <= endDate
+                        select stockPrice;
+            return await FindByCondition(expression).ToListAsync();
         }
     }
 }
