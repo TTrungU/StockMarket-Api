@@ -10,6 +10,7 @@ using Infrastructure.Repository.Interface;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Quartz;
 using System.Configuration;
 using System.Text;
 
@@ -56,6 +57,21 @@ builder.Services.AddAuthentication(opt => {
         };
     });
 builder.Services.AddTransient<ExceptionHandlingMiddleware>();
+
+builder.Services.AddQuartz(q =>
+{
+    var jobKey = "ReaFilePyJob";
+    q.UseMicrosoftDependencyInjectionJobFactory();
+    q.AddJob<ReaFilePyJob>(opt => opt.WithIdentity(jobKey));
+
+    q.AddTrigger(opts => opts
+        .ForJob(jobKey)
+        .WithIdentity("ReadFilePy-trigger")
+        .WithCronSchedule("0 53 22 ? * *")
+        );
+});
+builder.Services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
+
 
 var app = builder.Build();
 
