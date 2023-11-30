@@ -15,6 +15,7 @@ namespace Infrastructure.Repository.Interface
         void Update(User userId);
         void Delete(User userId);
         bool IsUserExist(int userId);
+        bool IsUserExist(int? userId);
         bool IsEmailExisṭ(string email);
     }
 }

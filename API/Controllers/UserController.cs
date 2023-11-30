@@ -29,6 +29,12 @@ namespace API.Controllers
             await _userService.CreateUserAsync(createUser);
             return Ok();
         }
+        [HttpPut("{userId}")]
+        public async Task<IActionResult> UpdateUser(int userId, UserDto user)
+        { 
+            await _userService.UpdateUserAsync(userId, user);
+            return Ok();
+        }
 
         [HttpDelete]
         public async Task<IActionResult> DeleteUser(int id)

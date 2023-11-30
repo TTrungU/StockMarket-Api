@@ -34,5 +34,10 @@ namespace Infrastructure.Repository
         {
            return IsExist(user => user.Id ==userId);
         }
+
+        public bool IsUserExist(int? userId)
+        {
+            return IsExist(user => user.Id == userId);
+        }
     }
 }

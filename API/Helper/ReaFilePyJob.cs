@@ -1,6 +1,7 @@
 ﻿using Domain.Entity;
 using Infrastructure.Data;
 using Quartz;
+using System.Diagnostics;
 
 namespace API.Helper
 {
@@ -14,14 +15,31 @@ namespace API.Helper
         }
         public Task Execute(IJobExecutionContext context)
         {
-            var test = new Stock {
-                Symbol = "test",
+            string pythonPath = "python";  // Use "python" or specify the full path to the Python executable.
+            string scriptPath = @"D:\KLTN\WebAPI\StockMarket\API\Helper\ML\hello.py";
+
+            // Create a new process start info
+            ProcessStartInfo startInfo = new ProcessStartInfo
+            {
+                FileName = pythonPath,
+                Arguments = scriptPath,
+                RedirectStandardOutput = true,
+                UseShellExecute = false,
+                CreateNoWindow = true
             };
 
+            // Start the process
+            using (Process process = new Process())
+            {
+                process.StartInfo = startInfo;
+                process.Start();
 
-            dataContext.Stocks.Add(test);
-            dataContext.SaveChanges();
-           
+                // Read the output of the Python script (optional)
+        
+
+                process.WaitForExit();
+            }
+
             // Note: This method must always return a value 
             // This is especially important for trigger listers watching job execution 
             return Task.FromResult(true);

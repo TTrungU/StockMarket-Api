@@ -63,5 +63,20 @@ namespace Application.Service
              _userRepository.Delete(user);
             await _userRepository.SaveAsync();
         }
+
+        public async Task UpdateUserAsync(int id,UserDto userDto)
+        {
+            var user = await _userRepository.GetUserByIdAsync(id);
+            if (user == null)
+                throw new UserNotFoundException(id);
+
+            if( _userRepository.IsEmailExisṭ(userDto.Email) && user.Email != userDto.Email)
+                  throw new ConflictException($"Email: {user.Email} was already exist");
+
+            _mapper.Map(userDto,user);
+            _userRepository.Update(user);
+            await _userRepository.SaveAsync();
+
+        }
     }
 }

@@ -1,6 +1,7 @@
 
 using API.Helper;
 using API.Middleware;
+using Application;
 using Application.Service;
 using Application.Service.Interface;
 using Domain.Model;
@@ -32,6 +33,10 @@ builder.Services.AddScoped<IStockRepository, StockRepository>();
 builder.Services.AddScoped<IStockPriceService, StockPriceService>();
 builder.Services.AddScoped<IStockPriceRepository, StockPriceRepository>();
 builder.Services.AddScoped<IAuthenticateService, AuthenticateService>();
+builder.Services.AddScoped<IWatchListRepository, WatchListRepository>();
+builder.Services.AddScoped<IWatchListService, WatchListService>();
+builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
+builder.Services.AddScoped<INotificationService, NotificationService>();
 builder.Services.AddDbContext<DataContext>(options =>
 {
     options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection"));
@@ -67,7 +72,7 @@ builder.Services.AddQuartz(q =>
     q.AddTrigger(opts => opts
         .ForJob(jobKey)
         .WithIdentity("ReadFilePy-trigger")
-        .WithCronSchedule("0 53 22 ? * *")
+        .WithCronSchedule("0 43 15 ? * *")
         );
 });
 builder.Services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);

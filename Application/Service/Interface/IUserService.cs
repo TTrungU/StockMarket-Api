@@ -14,6 +14,7 @@ namespace Application.Service.Interface
         Task<IEnumerable<UserDto>> GetAllUserAsync();
         Task<UserDto> GetUserByIdAsync(int id);
         Task CreateUserAsync(CreateUserModel user);
+        Task UpdateUserAsync(int id, UserDto user);
         Task DeleteUserAsync(int id);
     }
 }
